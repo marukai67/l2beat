@@ -67,13 +67,10 @@ function getDiscoveries(
     ...referencedProjects,
     ...(discovery.sharedModules ?? []), // TODO remove once entrypoints are used instead of sharedModules
   ])
-  if (allReferencedProjects) {
-    for (const sharedModule of allReferencedProjects) {
-      try {
-        result.push(configReader.readDiscovery(sharedModule))
-      } catch {}
-    }
-  }
+  for (const sharedModule of allReferencedProjects) {
+    try {
+      result.push(configReader.readDiscovery(sharedModule))
+    } catch {}
 
   // TODO: this should be removed and covered by entrypoints and references
   const dependentDiscoveries = discovery.dependentDiscoveries ?? {}
